@@ -1,0 +1,25 @@
+DOMAIN {
+	root * /opt/code/public
+    encode gzip
+    
+    file_server {
+        index index.php index.html index.htm
+    }
+
+    php_fastcgi php:9000
+
+	header / {
+		Strict-Transport-Security	"max-age=30758400"
+		X-Content-Type-Options		"nosniff"
+		X-Frame-Options			"deny"
+		Referrer-Policy			"no-referrer-when-downgrade"
+	}
+
+    log {
+        output file /opt/log/access.log {
+            roll_size 1gb
+            roll_keep 5
+            roll_keep_for 720h
+        }
+    }
+}
